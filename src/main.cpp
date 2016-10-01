@@ -16,10 +16,13 @@ void onClose() {
 void onPacket(char *data, size_t size) {
     int angle;
     int speed;
+    int buzz;
 
-    sscanf(data, "%d,%d", &angle, &speed);
+    sscanf(data, "%d|%d|%d ", &angle, &speed, &buzz);
 
     motors->calculateAndSend(angle, sqrt(speed) * 100);
+
+    digitalWrite(2, buzz);
 }
 
 void onClient(int client) {
