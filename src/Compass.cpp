@@ -20,8 +20,11 @@ double Compass::readAngle() {
     int xl = this->readReg8(0x04);
     int ym = this->readReg8(0x07);
     int yl = this->readReg8(0x08);
+    int zm = this->readReg8(0x05);
+    int zl = this->readReg8(0x06);
+    //reading all 6 registers will hopefully solve the bug
 
-    // Read from compass
+    // Convert from msb/lsb to int
     int x = (xm << 8) | xl;
     int y = (ym << 8) | yl;
 
