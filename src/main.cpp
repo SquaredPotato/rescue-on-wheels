@@ -1,7 +1,9 @@
 #include <wiringPi.h>
 #include "Server.h"
 #include "Motors.h"
+#include "Compass.h"
 
+Compass *compass;
 Motors *motors;
 Server *server;
 
@@ -46,6 +48,13 @@ int main(int argc, char *argv[]) {
     motors = new Motors(0x32);
     motors->init();
     motors->calculateAndSend(0, 0);
+
+    compass = new Compass(0x1e);
+    compass->init();
+
+    while (1) {
+        printf("%f\n", compass->readAngle());
+    }
 
     server = new Server(1337);
     server->bindPort();

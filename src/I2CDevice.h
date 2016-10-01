@@ -11,6 +11,8 @@ public:
 
     virtual void init();
     ssize_t send(const void *data, size_t size);
+    int writeReg8(int reg, int data);
+    int readReg8(int reg);
 
 private:
     int id;
