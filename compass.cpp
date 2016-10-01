@@ -1,68 +1,49 @@
-//
-// Created by Stefan Schokker on 19/09/2016.
-//
 #include <stdio.h>
-#include <string.h>    //strlen
-#include <sys/socket.h>
-#include <arpa/inet.h> //inet_addr
-#include <unistd.h>    //write
-
+#include <unistd.h>
+#include <math.h>
+#include <time.h>
 #include <wiringPi.h>
 #include <wiringPiI2C.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <math.h>
-#include <cinttypes>
 
-int cd;
+#define _USE_MATH_DEFINES
 
-int main (void)
-{
-    wiringPiSetup();
-    cd = wiringPiI2CSetup(0x1E);
+int  compass;
+void writeToDevice() ;
 
-    //pointer addresses
-    uint8_t modeRegisterAddress[1] = {0x02};
-    uint8_t outputAddress[1] = {0x03};
-    uint8_t writeP[1] = {0x3C};
-    uint8_t readP[1] = {0x3D};
-    uint8_t modeRegister[1] = {0};
+int main(int argc, char** argv) {
+    compass = wiringPiI2CSetup(0x1e);
+    writeToDevice();
 
-    //setting to continuous mode
-    write(cd, writeP, 2);
-    write(cd, outputAddress, 4);
-    read(cd, &modeRegister, 1);
-    modeRegister[0] |= 1 << 8;
-    write(cd, writeP, 2);
-    write(cd, outputAddress, 4);
-    write(cd, modeRegister, 1);
+    while (1) {
+        //Configuration
+        wiringPiI2CWriteReg8(compass, 0x02, 0x01); //idle mode
+        usleep(100000);
+        int xm = wiringPiI2CReadReg8(compass, 0x03);
+        int xl = wiringPiI2CReadReg8(compass, 0x04);
+        int ym = wiringPiI2CReadReg8(compass, 0x07);
+        int yl = wiringPiI2CReadReg8(compass, 0x08);
+        int zm = wiringPiI2CReadReg8(compass, 0x05);
+        int zl = wiringPiI2CReadReg8(compass, 0x06);
 
-    printf("%s %" PRIu8 " \n", "mode: ", modeRegister);
+        // Read from compass
+        short x = (xm << 8) | xl;
+        short y = (ym << 8) | yl;
+        short z = (zm << 8) | zl;
 
-    while (1 && !getchar())
-    {
-
-        //data from output reg
-        uint8_t bytes[6] = {0,0,0,0,0,0};
-
-        //move pionter location to Data Output X MSB Register
-        write(cd, writeP, 2);
-        write(cd, outputAddress, 2);
-
-        for (int i = 0; i < 6; i ++)
-        {
-            read(cd, &bytes[i], 1);
+        float angle = (atan2(y, x)) * 180 / M_PI;
+        //With just the above formula, we will get the angle between the values -180 to 180.
+        //We will use the if statement below to change this to a angle value between 0 and 360.
+        if (angle < 0) {
+            angle += 360;
         }
-
-        int xLocation = (bytes[0] << 8) + (bytes[1] >> 8);
-        int yLocation = (bytes[2] << 8) + (bytes[3] >> 8);
-        int zLocation = (bytes[4] << 8) + (bytes[5] >> 8);
-
-        printf("%s %d \n", "xLoc: ", xLocation);
-        printf("%s %d \n", "yLoc: ", yLocation);
-        printf("%s %d \n", "zLoc: ", zLocation);
-        printf("%s \n", "----------------");
-
-        usleep(1000000);
+        printf("angle=%0.1f,\t x=%d, y=%d, z=%d\n", angle, x, y, z);
     }
+}
+
+void writeToDevice() {
+    //int compass = wiringPiI2CSetup(0x1e);
+    wiringPiI2CWriteReg8(compass, 0x00, 0x70);
+    wiringPiI2CWriteReg8(compass, 0x01, 0xA0);
+    wiringPiI2CWriteReg8(compass, 0x02, 0x01);
+
 }
