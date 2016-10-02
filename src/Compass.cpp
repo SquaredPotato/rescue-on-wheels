@@ -40,7 +40,7 @@ float Compass::readAngle() {
         angle += 360;
     }
 
-    printf("angle=%0.1f,\t x=%d, y=%d, z=%d\n", angle, x, y, z);
+//    printf("angle=%0.1f,\t x=%d, y=%d, z=%d\n", angle, x, y, z);
 
     return angle;
 }

@@ -4,12 +4,14 @@
 #include "Server.h"
 #include "Motors.h"
 #include "Compass.h"
+#include "Distance.h"
 
 using namespace std;
 
 pthread_t sensor_thread;
 
 Compass *compass;
+Distance *distance_sensor;
 Motors *motors;
 Server *server;
 
@@ -19,13 +21,19 @@ bool stopping = false;
 
 void *sensorRun(void *vd) {
     while (!stopping) {
-
-        void *data = malloc(4);
+        size_t size = sizeof(int) + sizeof(char);
+        char *data = (char *) malloc(size);
 
         int angle = (int) compass->readAngle();
         *((int *) data) = angle;
+        data += sizeof(int);
 
-        server->writePacket(client, data, 4);
+        char dist = distance_sensor->readDistance();
+        *(data) = dist;
+        data += sizeof(char);
+
+        data -= size;
+        server->writePacket(client, data, size);
 
         if (!stopping) {
             usleep(100000);
@@ -84,6 +92,9 @@ int main(int argc, char *argv[]) {
 
     compass = new Compass(0x1e);
     compass->init();
+
+    distance_sensor = new Distance(0x70);
+    distance_sensor->init();
 
     server = new Server(1337);
     if (!server->bindPort()) {
