@@ -10,7 +10,4 @@ while true; do
 
     # Run the project
     sudo ./column
-
-    # Wait two seconds before restarting
-    sleep 2
 done

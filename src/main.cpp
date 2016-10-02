@@ -21,16 +21,16 @@ bool stopping = false;
 
 void *sensorRun(void *vd) {
     while (!stopping) {
-        size_t size = sizeof(int) + sizeof(char);
+        size_t size = sizeof(int) * 2;
         char *data = (char *) malloc(size);
 
         int angle = (int) compass->readAngle();
         *((int *) data) = angle;
         data += sizeof(int);
 
-        char dist = distance_sensor->readDistance();
-        *(data) = dist;
-        data += sizeof(char);
+        int dist = distance_sensor->readDistance();
+        *((int *) data) = dist;
+        data += sizeof(int);
 
         data -= size;
         server->writePacket(client, data, size);
@@ -41,20 +41,22 @@ void *sensorRun(void *vd) {
     }
 }
 
-void onClose() {
+void bleep() {
     digitalWrite(2, 1);
     usleep(5000);
     digitalWrite(2, 0);
+}
+
+void onClose() {
+    bleep();
 
     motors->calculateAndSend(0, 0);
 }
 
 void onPacket(char *data, size_t size) {
-    int angle;
-    int speed;
-    int buzz;
-
-    sscanf(data, "%d|%d|%d ", &angle, &speed, &buzz);
+    int16_t angle = *((int16_t *) data);
+    char speed = data[2];
+    char buzz  = data[3];
 
     motors->calculateAndSend(angle, sqrt(speed) * 100);
 
@@ -62,13 +64,9 @@ void onPacket(char *data, size_t size) {
 }
 
 void onClient(int socket) {
-    digitalWrite(2, 1);
-    usleep(5000);
-    digitalWrite(2, 0);
+    bleep();
     usleep(100000);
-    digitalWrite(2, 1);
-    usleep(5000);
-    digitalWrite(2, 0);
+    bleep();
 
     client = socket;
 
@@ -80,7 +78,7 @@ void onClient(int socket) {
     server->handlePackets(socket, onPacket, onClose);
 }
 
-int main(int argc, char *argv[]) {
+void setupHardware() {
     wiringPiSetup();
     pullUpDnControl(0, PUD_DOWN);
 
@@ -95,18 +93,24 @@ int main(int argc, char *argv[]) {
 
     distance_sensor = new Distance(0x70);
     distance_sensor->init();
+}
 
+void setupServer() {
     server = new Server(1337);
     if (!server->bindPort()) {
         cerr << "Failed to bind port" << std::endl;
-        return 1;
+        return;
     }
 
     cout << "Port bound" << std::endl;
+}
 
-    digitalWrite(2, 1);
-    usleep(5000);
-    digitalWrite(2, 0);
+int main(int argc, char *argv[]) {
+
+    setupHardware();
+    setupServer();
+
+    bleep();
 
     server->acceptClient(onClient);
 
