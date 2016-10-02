@@ -12,4 +12,4 @@ file(GLOB SOURCE_FILES
 
 add_executable(column ${SOURCE_FILES})
 
-target_link_libraries(column m wiringPi)
+target_link_libraries(column m wiringPi pthread)

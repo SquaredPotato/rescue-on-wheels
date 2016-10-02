@@ -20,6 +20,7 @@ public:
     bool bindPort();
     bool acceptClient(void (*cb)(int clientSocket));
     void handlePackets(int socket, void (*cb)(char * data, size_t size), void (*scb)());
+    void writePacket(int socket, void *data, size_t size);
     void close();
 
 private:

@@ -11,7 +11,7 @@ public:
 
     virtual void init() override;
 
-    double readAngle();
+    float readAngle();
 };
 
 

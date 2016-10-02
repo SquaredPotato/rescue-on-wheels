@@ -20,12 +20,13 @@ bool Server::bindPort() {
 
     //Bind
     if (bind(this->handle, (struct sockaddr *) &this->server, sizeof(this->server)) < 0) {
-        perror("bind failed. Error");
         return false;
     }
 
     //Listen
     listen(this->handle, 3);
+
+    return true;
 }
 
 bool Server::acceptClient(void (*cb)(int clientSocket)) {
@@ -67,4 +68,8 @@ void Server::handlePackets(int socket, void (*cb)(char *data, size_t size), void
 
 void Server::close() {
 
+}
+
+void Server::writePacket(int socket, void *data, size_t size) {
+    write(socket, data, size);
 }

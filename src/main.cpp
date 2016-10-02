@@ -1,11 +1,37 @@
 #include <wiringPi.h>
+#include <pthread.h>
+#include <iostream>
 #include "Server.h"
 #include "Motors.h"
 #include "Compass.h"
 
+using namespace std;
+
+pthread_t sensor_thread;
+
 Compass *compass;
 Motors *motors;
 Server *server;
+
+int client;
+
+bool stopping = false;
+
+void *sensorRun(void *vd) {
+    while (!stopping) {
+
+        void *data = malloc(4);
+
+        int angle = (int) compass->readAngle();
+        *((int *) data) = angle;
+
+        server->writePacket(client, data, 4);
+
+        if (!stopping) {
+            usleep(100000);
+        }
+    }
+}
 
 void onClose() {
     digitalWrite(2, 1);
@@ -27,7 +53,7 @@ void onPacket(char *data, size_t size) {
     digitalWrite(2, buzz);
 }
 
-void onClient(int client) {
+void onClient(int socket) {
     digitalWrite(2, 1);
     usleep(5000);
     digitalWrite(2, 0);
@@ -36,7 +62,14 @@ void onClient(int client) {
     usleep(5000);
     digitalWrite(2, 0);
 
-    server->handlePackets(client, onPacket, onClose);
+    client = socket;
+
+    if (pthread_create(&sensor_thread, NULL, sensorRun, NULL)) {
+        cerr << "Error creating sensor thread" << std::endl;
+        return;
+    }
+
+    server->handlePackets(socket, onPacket, onClose);
 }
 
 int main(int argc, char *argv[]) {
@@ -52,20 +85,23 @@ int main(int argc, char *argv[]) {
     compass = new Compass(0x1e);
     compass->init();
 
-    while (1) {
-        printf("%f\n", compass->readAngle());
+    server = new Server(1337);
+    if (!server->bindPort()) {
+        cerr << "Failed to bind port" << std::endl;
+        return 1;
     }
 
-    server = new Server(1337);
-    server->bindPort();
-
-    puts("Bound port.");
+    cout << "Port bound" << std::endl;
 
     digitalWrite(2, 1);
     usleep(5000);
     digitalWrite(2, 0);
 
     server->acceptClient(onClient);
+
+    stopping = true;
+
+    pthread_join(sensor_thread, NULL);
 
     return 0;
 }
