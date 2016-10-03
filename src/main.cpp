@@ -20,10 +20,10 @@ int client;
 bool stopping = false;
 
 void *sensorRun(void *vd) {
-    while (!stopping) {
-        size_t size = sizeof(int) * 2;
-        char *data = (char *) malloc(size);
+    size_t size = sizeof(int) * 2;
+    char *data = (char *) malloc(size);
 
+    while (!stopping) {
         int angle = (int) compass->readAngle();
         *((int *) data) = angle;
         data += sizeof(int);
