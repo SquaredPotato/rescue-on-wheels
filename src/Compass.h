@@ -4,6 +4,7 @@
 
 
 #include "I2CDevice.h"
+#include <math.h>
 
 class Compass : public I2CDevice {
 public:

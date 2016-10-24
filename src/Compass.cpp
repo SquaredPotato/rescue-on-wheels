@@ -1,7 +1,5 @@
 
-#include <zconf.h>
 #include <math.h>
-#include <cstdio>
 #include "Compass.h"
 
 Compass::Compass(int id) : I2CDevice(id) {}
@@ -22,13 +20,12 @@ float Compass::readAngle() {
     int yl = this->readReg8(0x08);
     int zm = this->readReg8(0x05);
     int zl = this->readReg8(0x06);
-    //reading all 6 registers will hopefully solve the bug
 
     this->writeReg8(0x02, 0x01);
 
 //    printf("%d, %d, %d, %d, %d, %d, %d\n", this->handle, xm, xl, ym, yl, zm, zl);
 
-    // Convert from msb/lsb to int
+    // Convert from msb/lsb to short
     short x = (short) ((xm << 8) | xl);
     short y = (short) ((ym << 8) | yl);
     short z = (short) ((zm << 8) | zl);
