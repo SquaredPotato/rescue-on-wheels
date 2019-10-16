@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="column"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/Stefan/Documents/rescue-on-wheels/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/opt/local/bin/gmake -j8 -f &quot;/Users/Stefan/Documents/rescue-on-wheels/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/opt/local/bin/gmake -j8 -f &quot;/Users/Stefan/Documents/rescue-on-wheels/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/opt/local/bin/gmake -j8 -f &quot;/Users/Stefan/Documents/rescue-on-wheels/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/opt/local/bin/gmake -j8 -f &quot;/Users/Stefan/Documents/rescue-on-wheels/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/Stefan/Documents/rescue-on-wheels/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/opt/local/bin/gmake -j8 -f &quot;/Users/Stefan/Documents/rescue-on-wheels/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/opt/local/bin/gmake -j8 -f &quot;/Users/Stefan/Documents/rescue-on-wheels/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/opt/local/bin/gmake -j8 -f &quot;/Users/Stefan/Documents/rescue-on-wheels/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/opt/local/bin/gmake -j8 -f &quot;/Users/Stefan/Documents/rescue-on-wheels/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/Stefan/Documents/rescue-on-wheels/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/opt/local/bin/gmake -j8 -f &quot;/Users/Stefan/Documents/rescue-on-wheels/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/opt/local/bin/gmake -j8 -f &quot;/Users/Stefan/Documents/rescue-on-wheels/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/opt/local/bin/gmake -j8 -f &quot;/Users/Stefan/Documents/rescue-on-wheels/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/opt/local/bin/gmake -j8 -f &quot;/Users/Stefan/Documents/rescue-on-wheels/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="column">
+				<Option output="/Users/Stefan/Documents/rescue-on-wheels/cmake-build-debug/column" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/Stefan/Documents/rescue-on-wheels/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/Stefan/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/8.1.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/opt/local/bin/gmake -j8 -f &quot;/Users/Stefan/Documents/rescue-on-wheels/cmake-build-debug/Makefile&quot;  VERBOSE=1 column"/>
+					<CompileFile command="/opt/local/bin/gmake -j8 -f &quot;/Users/Stefan/Documents/rescue-on-wheels/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/opt/local/bin/gmake -j8 -f &quot;/Users/Stefan/Documents/rescue-on-wheels/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/opt/local/bin/gmake -j8 -f &quot;/Users/Stefan/Documents/rescue-on-wheels/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="column/fast">
+				<Option output="/Users/Stefan/Documents/rescue-on-wheels/cmake-build-debug/column" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/Stefan/Documents/rescue-on-wheels/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/Stefan/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/8.1.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/opt/local/bin/gmake -j8 -f &quot;/Users/Stefan/Documents/rescue-on-wheels/cmake-build-debug/Makefile&quot;  VERBOSE=1 column/fast"/>
+					<CompileFile command="/opt/local/bin/gmake -j8 -f &quot;/Users/Stefan/Documents/rescue-on-wheels/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/opt/local/bin/gmake -j8 -f &quot;/Users/Stefan/Documents/rescue-on-wheels/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/opt/local/bin/gmake -j8 -f &quot;/Users/Stefan/Documents/rescue-on-wheels/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/Stefan/Documents/rescue-on-wheels/src/Compass.cpp">
+			<Option target="column"/>
+		</Unit>
+		<Unit filename="/Users/Stefan/Documents/rescue-on-wheels/src/Compass.h">
+			<Option target="column"/>
+		</Unit>
+		<Unit filename="/Users/Stefan/Documents/rescue-on-wheels/src/Distance.cpp">
+			<Option target="column"/>
+		</Unit>
+		<Unit filename="/Users/Stefan/Documents/rescue-on-wheels/src/Distance.h">
+			<Option target="column"/>
+		</Unit>
+		<Unit filename="/Users/Stefan/Documents/rescue-on-wheels/src/I2CDevice.cpp">
+			<Option target="column"/>
+		</Unit>
+		<Unit filename="/Users/Stefan/Documents/rescue-on-wheels/src/I2CDevice.h">
+			<Option target="column"/>
+		</Unit>
+		<Unit filename="/Users/Stefan/Documents/rescue-on-wheels/src/Motors.cpp">
+			<Option target="column"/>
+		</Unit>
+		<Unit filename="/Users/Stefan/Documents/rescue-on-wheels/src/Motors.h">
+			<Option target="column"/>
+		</Unit>
+		<Unit filename="/Users/Stefan/Documents/rescue-on-wheels/src/Server.cpp">
+			<Option target="column"/>
+		</Unit>
+		<Unit filename="/Users/Stefan/Documents/rescue-on-wheels/src/Server.h">
+			<Option target="column"/>
+		</Unit>
+		<Unit filename="/Users/Stefan/Documents/rescue-on-wheels/src/main.cpp">
+			<Option target="column"/>
+		</Unit>
+		<Unit filename="/Users/Stefan/Documents/rescue-on-wheels/src/speaker.cpp">
+			<Option target="column"/>
+		</Unit>
+		<Unit filename="/Users/Stefan/Documents/rescue-on-wheels/src/speaker.h">
+			<Option target="column"/>
+		</Unit>
+		<Unit filename="/Users/Stefan/Documents/rescue-on-wheels/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

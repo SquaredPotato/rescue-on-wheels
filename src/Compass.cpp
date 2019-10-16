@@ -7,6 +7,7 @@ Compass::Compass(int id) : I2CDevice(id) {}
 void Compass::init() {
     I2CDevice::init();
 
+//	Settings, see documentation
     this->writeReg8(0x00, 0x70);
     this->writeReg8(0x01, 0xA0);
     this->writeReg8(0x02, 0x01);
@@ -14,6 +15,7 @@ void Compass::init() {
 }
 
 float Compass::readAngle() {
+//	Read all axes from magnetometer using I2C
     int xm = this->readReg8(0x03);
     int xl = this->readReg8(0x04);
     int ym = this->readReg8(0x07);
@@ -21,6 +23,7 @@ float Compass::readAngle() {
     int zm = this->readReg8(0x05);
     int zl = this->readReg8(0x06);
 
+//	Reset magnetometer
     this->writeReg8(0x02, 0x01);
 
 //    printf("%d, %d, %d, %d, %d, %d, %d\n", this->handle, xm, xl, ym, yl, zm, zl);
